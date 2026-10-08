@@ -1,0 +1,11 @@
+/*
+Theme Name: Erbify Headless
+Description: Minimal backend-only theme for Erbify. Serves no frontend
+             templates — WordPress is used purely as a content/admin
+             backend, with content exposed to the React frontend via
+             WPGraphQL. Requires: Advanced Custom Fields (Pro, for
+             repeater fields), WPGraphQL, WPGraphQL for ACF.
+Author: —
+Version: 1.0.0
+Text Domain: erbify-headless
+*/
