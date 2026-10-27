@@ -2,10 +2,8 @@
 /**
  * Erbify Headless — functions.php
  *
- * Backend-only theme. Its only real job is to load the ACF field
- * registration so it's active in wp-admin and exposed via WPGraphQL.
- * Everything below the field include is optional headless plumbing —
- * trim what you don't need.
+ * Backend-only theme. Alomar content fields and GraphQL registration are
+ * owned by the Alomar Holding Core plugin.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,14 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'after_setup_theme', function () {
 	add_theme_support( 'post-thumbnails', array( 'post', 'page' ) );
 } );
-
-/**
- * Load ACF field groups.
- */
-require_once get_template_directory() . '/inc/acf/acf-fields.php';
-require_once get_template_directory() . '/inc/acf/acf-contact.php';
-require_once get_template_directory() . '/inc/acf/acf-footer.php';
-require_once get_template_directory() . '/inc/acf/acf-header.php';
 
 /**
  * Warn in wp-admin if required plugins are missing, instead of failing
