@@ -1,6 +1,6 @@
 <?php
 /**
- * Erbify Headless — functions.php
+ * WP Headless — functions.php
  *
  * Backend-only theme. Alomar content fields and GraphQL registration are
  * owned by the Alomar Holding Core plugin.
@@ -9,6 +9,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/** Theme-owned ACF configuration. */
+require_once get_theme_file_path( '/inc/acf.php' );
 
 /**
  * Enable featured images for posts and pages.
@@ -37,7 +40,7 @@ add_action( 'admin_notices', function () {
 
 	if ( ! empty( $missing ) ) {
 		printf(
-			'<div class="notice notice-warning"><p><strong>Erbify Headless:</strong> missing required plugin(s): %s.</p></div>',
+			'<div class="notice notice-warning"><p><strong>WP Headless:</strong> missing required plugin(s): %s.</p></div>',
 			esc_html( implode( ', ', $missing ) )
 		);
 	}

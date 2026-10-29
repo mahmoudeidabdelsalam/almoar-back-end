@@ -1,6 +1,6 @@
 <?php
 /**
- * ERBIFY — Header Settings (ACF Options Page)
+ * WP — Header Settings (ACF Options Page)
  *
  * Matches the EXISTING GraphQL query already used by the frontend
  * (see queries/header.ts, uploaded by the project):
@@ -45,7 +45,7 @@ add_action( 'acf/init', function () {
 	) );
 
 	acf_add_local_field_group( array(
-		'key'                => 'group_erbify_header',
+		'key'                => 'group_wp_header',
 		'title'              => 'Header Fields',
 		'show_in_graphql'    => true,
 		'graphql_field_name' => 'headerFields',
@@ -60,14 +60,14 @@ add_action( 'acf/init', function () {
 		),
 		'fields' => array(
 			array(
-				'key'           => 'field_erbify_header_logo',
+				'key'           => 'field_wp_header_logo',
 				'label'         => 'Logo',
 				'name'          => 'logo',
 				'type'          => 'image',
 				'return_format' => 'id',
 			),
 			array(
-				'key'          => 'field_erbify_header_menu',
+				'key'          => 'field_wp_header_menu',
 				'label'        => 'Menu',
 				'name'         => 'menu',
 				'type'         => 'repeater',
@@ -75,25 +75,32 @@ add_action( 'acf/init', function () {
 				'button_label' => 'Add Menu Item',
 				'sub_fields'   => array(
 					array(
-						'key'   => 'field_erbify_menu_label',
+						'key'   => 'field_wp_menu_label',
 						'label' => 'Label',
 						'name'  => 'label',
 						'type'  => 'text',
 					),
 					array(
-						'key'   => 'field_erbify_menu_label_de',
-						'label' => 'Label (German)',
-						'name'  => 'label_de',
+						'key'   => 'field_wp_menu_label_en',
+						'label' => 'Label (English)',
+						'name'  => 'label_en',
 						'type'  => 'text',
 					),
 					array(
-						'key'   => 'field_erbify_menu_link',
+						'key'   => 'field_wp_menu_link',
 						'label' => 'Link',
 						'name'  => 'link',
 						'type'  => 'link',
 					),
 					array(
-						'key'          => 'field_erbify_menu_submenu',
+						'key'   => 'field_wp_menu_image',
+						'label' => 'Image',
+						'name'  => 'image',
+						'type'  => 'image',
+						'return_format' => 'id',
+					),
+					array(
+						'key'          => 'field_wp_menu_submenu',
 						'label'        => 'Submenu',
 						'name'         => 'submenu',
 						'type'         => 'repeater',
@@ -101,41 +108,60 @@ add_action( 'acf/init', function () {
 						'button_label' => 'Add Submenu Item',
 						'sub_fields'   => array(
 							array(
-								'key'   => 'field_erbify_submenu_label',
+								'key'   => 'field_wp_submenu_label',
 								'label' => 'Label',
 								'name'  => 'label',
 								'type'  => 'text',
 							),
-									array(
-										'key'   => 'field_erbify_submenu_label_de',
-										'label' => 'Label (German)',
-										'name'  => 'label_de',
-										'type'  => 'text',
-									),
 							array(
-								'key'   => 'field_erbify_submenu_link',
+								'key'   => 'field_wp_submenu_label_small',
+								'label' => 'Label (Small)',
+								'name'  => 'label_small',
+								'type'  => 'text',
+							),
+							array(
+								'key'   => 'field_wp_submenu_label_en',
+								'label' => 'Label (English)',
+								'name'  => 'label_en',
+								'type'  => 'text',
+							),
+							array(
+								'key'   => 'field_wp_submenu_label_small_en',
+								'label' => 'Label (Small, English)',
+								'name'  => 'label_small_en',
+								'type'  => 'text',
+							),
+							array(
+								'key'   => 'field_wp_submenu_link',
 								'label' => 'Link',
 								'name'  => 'link',
 								'type'  => 'link',
+							),
+							array(
+								'key'   => 'field_wp_submenu_image',
+								'label' => 'Image',
+								'name'  => 'image',
+								'type'  => 'image',
+								'return_format' => 'id',
 							),
 						),
 					),
 				),
 			),
 			array(
-				'key'   => 'field_erbify_header_label_button_right',
+				'key'   => 'field_wp_header_label_button_right',
 				'label' => 'Right Button Label',
 				'name'  => 'label_button_right',
 				'type'  => 'text',
 			),
 			array(
-				'key'   => 'field_erbify_header_label_button_right_de',
-				'label' => 'Right Button Label (German)',
-				'name'  => 'label_button_right_de',
+				'key'   => 'field_wp_header_label_button_right_en',
+				'label' => 'Right Button Label (English)',
+				'name'  => 'label_button_right_en',
 				'type'  => 'text',
 			),
 			array(
-				'key'   => 'field_erbify_header_link_button_right',
+				'key'   => 'field_wp_header_link_button_right',
 				'label' => 'Right Button Link',
 				'name'  => 'link_button_right',
 				'type'  => 'link',

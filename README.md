@@ -1,6 +1,6 @@
-# erbify.de_backend
+# WP.de_backend
 
-Headless WordPress theme for the erbify.de backend. This theme is used as the CMS/admin backend only; it exposes structured content through WordPress + ACF + WPGraphQL to the React frontend instead of rendering frontend templates.
+Headless WordPress theme for the WP.de backend. This theme is used as the CMS/admin backend only; it exposes structured content through WordPress + ACF + WPGraphQL to the React frontend instead of rendering frontend templates.
 
 ## Requirements
 
@@ -16,9 +16,9 @@ This theme expects the headless setup to be used with a separate React frontend.
 ## Installation
 
 1. Copy this theme folder to your WordPress installation:
-   - `wp-content/themes/erbify-headless`
+   - `wp-content/themes/WP-headless`
 2. Activate the theme in WordPress admin:
-   - Appearance > Themes > Erbify Headless
+   - Appearance > Themes > WP Headless
 3. Install and activate the required plugins listed above.
 4. Set the frontend URL in `wp-config.php` if you want WordPress to redirect non-admin visitors to the React app:
 
