@@ -144,11 +144,95 @@ add_action('graphql_register_types', static function (): void {
                 $related_id = $item instanceof WP_Post ? (int) $item->ID : (is_numeric($item) ? (int) $item : 0);
                 $related_post = $related_id ? get_post($related_id) : null;
                 if ($related_post instanceof WP_Post && $related_post->post_type === 'news' && $related_post->post_status === 'publish') {
-                    $posts[] = $related_post;
+                    $posts[] = new \WPGraphQL\Model\Post($related_post);
                 }
             }
 
             return $posts;
+        },
+    ]);
+
+    register_graphql_object_type('AlomarNewsStatistic', [
+        'fields' => [
+            'value' => ['type' => 'String'],
+            'valueEn' => ['type' => 'String'],
+            'label' => ['type' => 'String'],
+            'labelEn' => ['type' => 'String'],
+        ],
+    ]);
+
+    register_graphql_object_type('AlomarNewsDetails', [
+        'fields' => [
+            'statistics' => ['type' => ['list_of' => 'AlomarNewsStatistic']],
+            'companyName' => ['type' => 'String'],
+            'companyNameEn' => ['type' => 'String'],
+            'companyDescription' => ['type' => 'String'],
+            'companyDescriptionEn' => ['type' => 'String'],
+            'companyLogoUrl' => ['type' => 'String'],
+            'companyLink' => ['type' => 'String'],
+        ],
+    ]);
+
+    foreach ([
+        'titleEn' => ['type' => 'String', 'field' => 'title_en'],
+        'excerptEn' => ['type' => 'String', 'field' => 'excerpt_en'],
+        'contentEn' => ['type' => 'String', 'field' => 'content_en'],
+        'newsCategoryAr' => ['type' => 'String', 'field' => 'category_ar'],
+        'newsCategoryEn' => ['type' => 'String', 'field' => 'category_en'],
+        'readTimeAr' => ['type' => 'String', 'field' => 'read_time_ar'],
+        'readTimeEn' => ['type' => 'String', 'field' => 'read_time_en'],
+    ] as $graphql_name => $definition) {
+        register_graphql_field('NewsArticle', $graphql_name, [
+            'type' => $definition['type'],
+            'resolve' => static function ($post) use ($definition) {
+                if (!is_object($post) || empty($post->ID) || !function_exists('get_field')) {
+                    return null;
+                }
+                $value = get_field($definition['field'], (int) $post->ID);
+                return is_string($value) && $value !== '' ? $value : null;
+            },
+        ]);
+    }
+
+    register_graphql_field('NewsArticle', 'newsDetails', [
+        'type' => 'AlomarNewsDetails',
+        'resolve' => static function ($post): ?array {
+            if (!is_object($post) || empty($post->ID) || !function_exists('get_field')) {
+                return null;
+            }
+
+            $post_id = (int) $post->ID;
+            $statistics = get_field('news_statistics', $post_id);
+            $logo = get_field('company_logo', $post_id);
+            if (is_array($logo)) {
+                $logo = $logo['url'] ?? null;
+            } elseif (is_numeric($logo)) {
+                $logo = wp_get_attachment_url((int) $logo);
+            }
+            $statistics = is_array($statistics) ? array_values(array_filter(array_map(
+                static function ($statistic): ?array {
+                    if (!is_array($statistic)) {
+                        return null;
+                    }
+                    return [
+                        'value' => $statistic['value'] ?? null,
+                        'valueEn' => $statistic['value_en'] ?? null,
+                        'label' => $statistic['label'] ?? null,
+                        'labelEn' => $statistic['label_en'] ?? null,
+                    ];
+                },
+                $statistics
+            ))) : [];
+
+            return [
+                'statistics' => $statistics,
+                'companyName' => get_field('company_name', $post_id) ?: null,
+                'companyNameEn' => get_field('company_name_en', $post_id) ?: null,
+                'companyDescription' => get_field('company_description', $post_id) ?: null,
+                'companyDescriptionEn' => get_field('company_description_en', $post_id) ?: null,
+                'companyLogoUrl' => is_string($logo) && $logo !== '' ? $logo : null,
+                'companyLink' => get_field('company_link', $post_id) ?: null,
+            ];
         },
     ]);
 
