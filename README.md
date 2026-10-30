@@ -1,6 +1,6 @@
-# WP.de_backend
+# Alomar Headless Theme
 
-Headless WordPress theme for the WP.de backend. This theme is used as the CMS/admin backend only; it exposes structured content through WordPress + ACF + WPGraphQL to the React frontend instead of rendering frontend templates.
+Headless WordPress theme for the Alomar Holding CMS. It exposes structured content through WordPress, ACF, and WPGraphQL to the Next.js frontend. WordPress remains the editorial/admin backend; the frontend is rendered by the separate application.
 
 ## Requirements
 
@@ -11,14 +11,14 @@ Before using this theme, install and activate the following in WordPress:
 - WPGraphQL
 - WPGraphQL for ACF
 
-This theme expects the headless setup to be used with a separate React frontend.
+This theme expects the headless setup to be used with the separate `almoar-front-end` application.
 
 ## Installation
 
 1. Copy this theme folder to your WordPress installation:
-   - `wp-content/themes/WP-headless`
+   - `wp-content/themes/theme-headless`
 2. Activate the theme in WordPress admin:
-   - Appearance > Themes > WP Headless
+   - Appearance > Themes > Alomar Headless
 3. Install and activate the required plugins listed above.
 4. Set the frontend URL in `wp-config.php` if you want WordPress to redirect non-admin visitors to the React app:
 
@@ -26,20 +26,24 @@ This theme expects the headless setup to be used with a separate React frontend.
 define( 'REACT_FRONTEND_URL', 'https://your-frontend-url.com' );
 ```
 
-5. Make sure the ACF field groups are loading correctly from `inc/acf/`.
+5. Make sure the theme-owned ACF field groups are loading correctly from `inc/acf/`.
 
 ## How it works
 
-This theme does not render front-end templates. Instead, it:
+This theme primarily serves the headless frontend. It:
 
-- registers ACF field groups for content management
-- exposes custom data to WPGraphQL
+- registers Alomar custom post types, taxonomies, and ACF field groups
+- exposes theme-owned content fields to WPGraphQL
+- preserves the active Alomar core plugin for existing GraphQL/business logic
 - redirects non-admin frontend traffic to the React app
 - keeps WordPress as the content source and admin backend only
 
 The main logic lives in:
 
 - `functions.php`
+- `inc/post-types.php`
+- `inc/taxonomies.php`
+- `inc/graphql.php`
 - `inc/acf/`
 
 ## Local development workflow
@@ -47,11 +51,13 @@ The main logic lives in:
 1. Start your WordPress environment and make sure the theme is active.
 2. Configure the React frontend URL in `wp-config.php`.
 3. Use WPGraphQL to fetch content for the frontend app.
-4. Update ACF fields in `inc/acf/` when new content types or data structures are needed.
+4. Update ACF fields in `inc/acf/` when the theme-owned content structures change.
 5. Refresh WordPress admin after field changes and validate the GraphQL schema.
 
 ## Notes
 
-- This is a backend-only theme, so you should not expect classic WordPress page templates here.
+- `page-about-us.php` and `page-contact-us.php` are available for direct WordPress rendering; the public site is still served by the frontend.
+- The theme removes the matching CPT/taxonomy registration hooks from the active core plugin before registering its equivalents. Keep the plugin active for its other integrations.
+- The contact GraphQL mutation is initialized from the existing core plugin class. It has been schema-validated locally, but a real submission has not been tested.
 - If the frontend is handled by a reverse proxy or external hosting layer, you can remove the redirect block from `functions.php` and keep only the ACF/GraphQL setup.
 - The theme warns in the admin area if required plugins are missing, which helps catch setup issues early.

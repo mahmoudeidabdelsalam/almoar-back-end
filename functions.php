@@ -2,8 +2,8 @@
 /**
  * WP Headless — functions.php
  *
- * Backend-only theme. Alomar content fields and GraphQL registration are
- * owned by the Alomar Holding Core plugin.
+ * Backend-only theme. Alomar content fields and content-type registration
+ * are theme-managed; the core plugin supplies the remaining business logic.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,13 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /** Theme-owned ACF configuration. */
+require_once get_theme_file_path( '/inc/post-types.php' );
+require_once get_theme_file_path( '/inc/taxonomies.php' );
+require_once get_theme_file_path( '/inc/graphql.php' );
 require_once get_theme_file_path( '/inc/acf.php' );
 
 /**
  * Enable featured images for posts and pages.
  */
 add_action( 'after_setup_theme', function () {
-	add_theme_support( 'post-thumbnails', array( 'post', 'page' ) );
+	add_theme_support( 'post-thumbnails', array( 'post', 'page', 'projects', 'news' ) );
 } );
 
 /**
@@ -36,6 +39,9 @@ add_action( 'admin_notices', function () {
 	if ( ! class_exists( 'WPGraphQL_ACF' ) && ! function_exists( 'wpgraphql_acf_init' ) ) {
 		// Best-effort check only — plugin class/function names vary by version.
 		$missing[] = 'WPGraphQL for ACF (verify manually if this warning is a false positive)';
+	}
+	if ( ! class_exists( 'Alomar_REST_API' ) ) {
+		$missing[] = 'Alomar Holding Core contact integration';
 	}
 
 	if ( ! empty( $missing ) ) {

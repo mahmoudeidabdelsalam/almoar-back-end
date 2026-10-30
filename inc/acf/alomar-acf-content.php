@@ -16,49 +16,103 @@ final class Alomar_Theme_ACF_Content {
                 ['name' => 'excerpt_en', 'label' => 'Summary (English)', 'type' => 'textarea', 'graphql' => 'excerptEn', 'legacy' => '_alomar_excerpt_en'],
                 ['name' => 'content_ar', 'label' => 'Description (Arabic)', 'type' => 'textarea', 'graphql' => 'contentAr', 'legacy' => '_alomar_content_ar'],
                 ['name' => 'content_en', 'label' => 'Description (English)', 'type' => 'textarea', 'graphql' => 'contentEn', 'legacy' => '_alomar_content_en'],
-                ['name' => 'status_ar', 'label' => 'Status (Arabic)', 'type' => 'text', 'graphql' => 'statusAr', 'legacy' => '_alomar_status'],
-                ['name' => 'status_en', 'label' => 'Status (English)', 'type' => 'text', 'graphql' => 'statusEn', 'legacy' => '_alomar_status_en'],
-                ['name' => 'location_ar', 'label' => 'Location (Arabic)', 'type' => 'text', 'graphql' => 'locationAr', 'legacy' => '_alomar_location'],
-                ['name' => 'location_en', 'label' => 'Location (English)', 'type' => 'text', 'graphql' => 'locationEn'],
-                ['name' => 'units_count', 'label' => 'Units', 'type' => 'text', 'graphql' => 'unitsCount', 'legacy' => '_alomar_units'],
-                ['name' => 'land_area', 'label' => 'Land Area', 'type' => 'text', 'graphql' => 'landArea', 'legacy' => '_alomar_land_area'],
-                ['name' => 'built_area', 'label' => 'Built Area', 'type' => 'text', 'graphql' => 'builtArea', 'legacy' => '_alomar_built_area'],
-                ['name' => 'completion_year', 'label' => 'Completion Year', 'type' => 'text', 'graphql' => 'completionYear', 'legacy' => '_alomar_year'],
-                ['name' => 'brochure_url', 'label' => 'Brochure URL', 'type' => 'url', 'graphql' => 'brochureUrl', 'legacy' => '_alomar_brochure'],
                 ['name' => 'featured', 'label' => 'Featured Project', 'type' => 'true_false', 'graphql' => 'featured', 'graphql_type' => 'Boolean'],
+                ['name' => 'project_logo', 'label' => 'Project Logo', 'type' => 'image', 'return_format' => 'array'],
+                ['name' => 'stats_band_tab', 'label' => 'Stats Band', 'type' => 'tab', 'placement' => 'left'],
+                ['name' => 'stats_tag', 'label' => 'Stats Tag (Arabic)', 'type' => 'text'],
+                ['name' => 'stats_tag_en', 'label' => 'Stats Tag (English)', 'type' => 'text'],
+                ['name' => 'stats_headline', 'label' => 'Stats Headline (Arabic)', 'type' => 'text'],
+                ['name' => 'stats_headline_en', 'label' => 'Stats Headline (English)', 'type' => 'text'],
+                [
+                    'name' => 'stats_items',
+                    'label' => 'Statistics',
+                    'type' => 'repeater',
+                    'layout' => 'block',
+                    'button_label' => 'Add Statistic',
+                    'sub_fields' => [
+                        ['key' => 'field_alomar_projects_stat_head', 'label' => 'Statistic Heading (Arabic)', 'name' => 'stat_head', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_stat_head_en', 'label' => 'Statistic Heading (English)', 'name' => 'stat_head_en', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_stat_text', 'label' => 'Statistic Text (Arabic)', 'name' => 'stat_text', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_stat_text_en', 'label' => 'Statistic Text (English)', 'name' => 'stat_text_en', 'type' => 'text'],
+                    ],
+                ],
+                ['name' => 'make_band_tab', 'label' => 'Make Band', 'type' => 'tab', 'placement' => 'left'],
+                ['name' => 'make_tag', 'label' => 'Make Tag (Arabic)', 'type' => 'text'],
+                ['name' => 'make_tag_en', 'label' => 'Make Tag (English)', 'type' => 'text'],
+                ['name' => 'make_headline', 'label' => 'Make Headline (Arabic)', 'type' => 'text'],
+                ['name' => 'make_headline_en', 'label' => 'Make Headline (English)', 'type' => 'text'],
+                [
+                    'name' => 'make_items',
+                    'label' => 'Make Items',
+                    'type' => 'repeater',
+                    'layout' => 'block',
+                    'button_label' => 'Add Make Item',
+                    'sub_fields' => [
+                        ['key' => 'field_alomar_projects_make_head', 'label' => 'Heading (Arabic)', 'name' => 'make_head', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_make_head_en', 'label' => 'Heading (English)', 'name' => 'make_head_en', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_make_text', 'label' => 'Text (Arabic)', 'name' => 'make_text', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_make_text_en', 'label' => 'Text (English)', 'name' => 'make_text_en', 'type' => 'text'],
+                    ],
+                ],
+                ['name' => 'companies_band_tab', 'label' => 'Companies Band', 'type' => 'tab', 'placement' => 'left'],
+                ['name' => 'companies_tag', 'label' => 'Companies Tag (Arabic)', 'type' => 'text'],
+                ['name' => 'companies_tag_en', 'label' => 'Companies Tag (English)', 'type' => 'text'],
+                ['name' => 'companies_headline', 'label' => 'Companies Headline (Arabic)', 'type' => 'text'],
+                ['name' => 'companies_headline_en', 'label' => 'Companies Headline (English)', 'type' => 'text'],
+                [
+                    'name' => 'companies_items',
+                    'label' => 'Companies',
+                    'type' => 'repeater',
+                    'layout' => 'block',
+                    'button_label' => 'Add Company',
+                    'sub_fields' => [
+                        ['key' => 'field_alomar_projects_company_logo', 'label' => 'Company Logo', 'name' => 'company_logo', 'type' => 'image', 'return_format' => 'array'],
+                        ['key' => 'field_alomar_projects_company_link', 'label' => 'Company Website', 'name' => 'company_link', 'type' => 'url'],
+                    ],
+                ],
+                ['name' => 'experience_tab', 'label' => 'Experience', 'type' => 'tab', 'placement' => 'left'],
+                ['name' => 'experience_tag', 'label' => 'Experience Tag (Arabic)', 'type' => 'text'],
+                ['name' => 'experience_tag_en', 'label' => 'Experience Tag (English)', 'type' => 'text'],
+                ['name' => 'experience_headline', 'label' => 'Experience Headline (Arabic)', 'type' => 'text'],
+                ['name' => 'experience_headline_en', 'label' => 'Experience Headline (English)', 'type' => 'text'],
+                [
+                    'name' => 'experience_items',
+                    'label' => 'Experience Items',
+                    'type' => 'repeater',
+                    'layout' => 'block',
+                    'button_label' => 'Add Experience Item',
+                    'sub_fields' => [
+                        ['key' => 'field_alomar_projects_experience_head', 'label' => 'Heading (Arabic)', 'name' => 'experience_head', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_experience_head_en', 'label' => 'Heading (English)', 'name' => 'experience_head_en', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_experience_text', 'label' => 'Text (Arabic)', 'name' => 'experience_text', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_experience_text_en', 'label' => 'Text (English)', 'name' => 'experience_text_en', 'type' => 'text'],
+                    ],
+                ],
+                ['name' => 'key_projects_tab', 'label' => 'Key Projects', 'type' => 'tab', 'placement' => 'left'],
+                ['name' => 'key_projects_tag', 'label' => 'Key Projects Tag (Arabic)', 'type' => 'text'],
+                ['name' => 'key_projects_tag_en', 'label' => 'Key Projects Tag (English)', 'type' => 'text'],
+                ['name' => 'key_projects_headline', 'label' => 'Key Projects Headline (Arabic)', 'type' => 'text'],
+                ['name' => 'key_projects_headline_en', 'label' => 'Key Projects Headline (English)', 'type' => 'text'],
+                [
+                    'name' => 'key_projects_items',
+                    'label' => 'Key Projects',
+                    'type' => 'repeater',
+                    'layout' => 'block',
+                    'button_label' => 'Add Key Project',
+                    'sub_fields' => [
+                        ['key' => 'field_alomar_projects_key_projects_img', 'label' => 'Project Image', 'name' => 'key_projects_img', 'type' => 'image', 'return_format' => 'array'],
+                        ['key' => 'field_alomar_projects_key_projects_head', 'label' => 'Project Heading (Arabic)', 'name' => 'key_projects_head', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_key_projects_head_en', 'label' => 'Project Heading (English)', 'name' => 'key_projects_head_en', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_key_projects_location', 'label' => 'Project Location (Arabic)', 'name' => 'key_projects_location', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_key_projects_location_en', 'label' => 'Project Location (English)', 'name' => 'key_projects_location_en', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_key_projects_text', 'label' => 'Project Description (Arabic)', 'name' => 'key_projects_text', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_key_projects_text_en', 'label' => 'Project Description (English)', 'name' => 'key_projects_text_en', 'type' => 'text'],
+                        ['key' => 'field_alomar_projects_key_projects_link', 'label' => 'Project Link', 'name' => 'key_projects_link', 'type' => 'link', 'return_format' => 'array'],
+                    ],
+                ],
             ],
         ],
-        'sectors' => [
-            'title' => 'Alomar Sector Details',
-            'fields' => [
-                ['name' => 'title_en', 'label' => 'Title (English)', 'type' => 'text', 'graphql' => 'titleEn', 'legacy' => '_alomar_title_en'],
-                ['name' => 'summary_en', 'label' => 'Summary (English)', 'type' => 'textarea', 'graphql' => 'summaryEn', 'legacy' => '_alomar_summary_en'],
-                ['name' => 'content_en', 'label' => 'Description (English)', 'type' => 'wysiwyg', 'graphql' => 'contentEn'],
-                ['name' => 'icon', 'label' => 'Icon Name', 'type' => 'text', 'graphql' => 'sectorIcon', 'legacy' => '_alomar_icon'],
-            ],
-        ],
-        'companies' => [
-            'title' => 'Alomar Company Details',
-            'fields' => [
-                ['name' => 'name_en', 'label' => 'Company Name (English)', 'type' => 'text', 'graphql' => 'nameEn', 'legacy' => '_alomar_name_en'],
-                ['name' => 'tagline_ar', 'label' => 'Tagline (Arabic)', 'type' => 'text', 'graphql' => 'taglineAr', 'legacy' => '_alomar_tagline_ar'],
-                ['name' => 'tagline_en', 'label' => 'Tagline (English)', 'type' => 'text', 'graphql' => 'taglineEn', 'legacy' => '_alomar_tagline_en'],
-                ['name' => 'description_en', 'label' => 'Description (English)', 'type' => 'textarea', 'graphql' => 'descriptionEn', 'legacy' => '_alomar_ensc_en'],
-                ['name' => 'website', 'label' => 'Website', 'type' => 'url', 'graphql' => 'companyWebsite', 'legacy' => '_alomar_website'],
-                ['name' => 'founded_year', 'label' => 'Year Founded', 'type' => 'text', 'graphql' => 'companyYear', 'legacy' => '_alomar_year'],
-            ],
-        ],
-        'board_members' => [
-            'title' => 'Alomar Leadership Details',
-            'fields' => [
-                ['name' => 'name_en', 'label' => 'Name (English)', 'type' => 'text', 'graphql' => 'nameEn', 'legacy' => '_alomar_name_en'],
-                ['name' => 'role_ar', 'label' => 'Role (Arabic)', 'type' => 'text', 'graphql' => 'roleAr', 'legacy' => '_alomar_role_ar'],
-                ['name' => 'role_en', 'label' => 'Role (English)', 'type' => 'text', 'graphql' => 'roleEn', 'legacy' => '_alomar_role_en'],
-                ['name' => 'bio_en', 'label' => 'Biography (English)', 'type' => 'textarea', 'graphql' => 'bioEn', 'legacy' => '_alomar_bio_en'],
-                ['name' => 'display_order', 'label' => 'Display Order', 'type' => 'number', 'graphql' => 'displayOrder', 'graphql_type' => 'Int'],
-            ],
-        ],
-        'post' => [
+        'news' => [
             'title' => 'Alomar News Details',
             'fields' => [
                 ['name' => 'title_en', 'label' => 'Title (English)', 'type' => 'text', 'graphql' => 'titleEn'],
@@ -68,6 +122,7 @@ final class Alomar_Theme_ACF_Content {
                 ['name' => 'category_en', 'label' => 'News Category (English)', 'type' => 'text', 'graphql' => 'newsCategoryEn'],
                 ['name' => 'read_time_ar', 'label' => 'Reading Time (Arabic)', 'type' => 'text', 'graphql' => 'readTimeAr'],
                 ['name' => 'read_time_en', 'label' => 'Reading Time (English)', 'type' => 'text', 'graphql' => 'readTimeEn'],
+                ['name' => 'related_articles', 'label' => 'Related Articles', 'type' => 'relationship', 'post_type' => ['news'], 'return_format' => 'object'],
             ],
         ],
     ];
@@ -77,7 +132,6 @@ final class Alomar_Theme_ACF_Content {
             return;
         }
         add_action('acf/init', [self::class, 'register_field_groups']);
-        add_action('acf/init', [self::class, 'register_project_entail_fields']);
         add_action('acf/init', [self::class, 'register_taxonomy_fields']);
         add_action('acf/init', [self::class, 'register_options_page']);
     }
@@ -142,14 +196,16 @@ final class Alomar_Theme_ACF_Content {
                     'label' => $field['label'],
                     'name' => $field['name'],
                     'type' => $field['type'],
-                    'show_in_graphql' => false,
+                    'show_in_graphql' => $post_type === 'projects',
+                    ...array_diff_key($field, array_flip(['name', 'label', 'type', 'graphql', 'legacy'])),
                 ];
             }
 
             acf_add_local_field_group([
                 'key' => 'group_alomar_' . $post_type,
                 'title' => $group['title'],
-                'show_in_graphql' => false,
+                'show_in_graphql' => $post_type === 'projects',
+                'graphql_field_name' => $post_type === 'projects' ? 'projectDetails' : '',
                 'location' => [[[
                     'param' => 'post_type',
                     'operator' => '==',
@@ -159,42 +215,6 @@ final class Alomar_Theme_ACF_Content {
                 'fields' => $fields,
             ]);
         }
-    }
-
-    public static function register_project_entail_fields(): void {
-        if (!function_exists('acf_add_local_field_group')) {
-            return;
-        }
-
-        acf_add_local_field_group([
-            'key' => 'group_alomar_project_entail_content',
-            'title' => 'Alomar Project Gallery and Highlights',
-            'show_in_graphql' => false,
-            'location' => [[[
-                'param' => 'post_type',
-                'operator' => '==',
-                'value' => 'projects',
-            ]]],
-            'fields' => [[
-                'key' => 'field_alomar_project_gallery',
-                'label' => 'Project Gallery',
-                'name' => 'project_gallery',
-                'type' => 'gallery',
-                'return_format' => 'array',
-                'preview_size' => 'medium',
-            ], [
-                'key' => 'field_alomar_project_highlights',
-                'label' => 'Project Highlights',
-                'name' => 'project_highlights',
-                'type' => 'repeater',
-                'layout' => 'table',
-                'button_label' => 'Add Highlight',
-                'sub_fields' => [
-                    ['key' => 'field_alomar_project_highlight_ar', 'label' => 'Highlight (Arabic)', 'name' => 'highlight_ar', 'type' => 'text'],
-                    ['key' => 'field_alomar_project_highlight_en', 'label' => 'Highlight (English)', 'name' => 'highlight_en', 'type' => 'text'],
-                ],
-            ]],
-        ]);
     }
 
     public static function register_taxonomy_fields(): void {
