@@ -16,6 +16,7 @@ require_once get_theme_file_path( '/inc/taxonomies.php' );
 require_once get_theme_file_path( '/inc/graphql.php' );
 require_once get_theme_file_path( '/inc/graphql-site-content.php' );
 require_once get_theme_file_path( '/inc/graphql-invest-with-us.php' );
+require_once get_theme_file_path( '/inc/graphql-investments.php' );
 require_once get_theme_file_path( '/inc/acf.php' );
 
 /**
