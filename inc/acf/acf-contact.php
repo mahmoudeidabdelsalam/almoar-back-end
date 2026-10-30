@@ -32,6 +32,12 @@ add_action( 'acf/init', function () {
 		),
 		'fields' => array(
 			array(
+				'key'       => 'field_wp_contact_page_tab_hero',
+				'label'     => 'Page Header',
+				'type'      => 'tab',
+				'placement' => 'top',
+			),
+			array(
 				'key'           => 'field_wp_contact_page_badge',
 				'label'         => 'Page Badge',
 				'name'          => 'contact_badge',
@@ -77,6 +83,12 @@ add_action( 'acf/init', function () {
 				'return_format' => 'array',
 			),
 			array(
+				'key'       => 'field_wp_contact_page_tab_contact',
+				'label'     => 'Contact Information',
+				'type'      => 'tab',
+				'placement' => 'top',
+			),
+			array(
 				'key'           => 'field_wp_contact_page_heading',
 				'label'         => 'Heading',
 				'name'          => 'contact_heading',
@@ -103,6 +115,12 @@ add_action( 'acf/init', function () {
 				'label' => 'Phone',
 				'name'  => 'contact_phone',
 				'type'  => 'text',
+			),
+			array(
+				'key'   => 'field_wp_contact_page_website',
+				'label' => 'Website',
+				'name'  => 'contact_website',
+				'type'  => 'url',
 			),
 			array(
 				'key'   => 'field_wp_contact_page_address',
@@ -143,6 +161,12 @@ add_action( 'acf/init', function () {
 				'type'  => 'number',
 			),
 			array(
+				'key'   => 'field_wp_contact_page_map_url',
+				'label' => 'Map Link',
+				'name'  => 'contact_map_url',
+				'type'  => 'url',
+			),
+			array(
 				'key'   => 'field_wp_contact_page_location',
 				'label' => 'Location',
 				'name'  => 'contact_location',
@@ -165,6 +189,12 @@ add_action( 'acf/init', function () {
 				'label' => 'Twitter / X Link',
 				'name'  => 'contact_twitter',
 				'type'  => 'link',
+			),
+			array(
+				'key'       => 'field_wp_contact_page_tab_form',
+				'label'     => 'Contact Form',
+				'type'      => 'tab',
+				'placement' => 'top',
 			),
 			array(
 				'key'           => 'field_wp_contact_page_form_title',

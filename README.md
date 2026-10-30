@@ -44,6 +44,8 @@ The main logic lives in:
 - `inc/post-types.php`
 - `inc/taxonomies.php`
 - `inc/graphql.php`
+- `inc/graphql-site-content.php`
+- `inc/graphql-invest-with-us.php`
 - `inc/acf/`
 
 ## Local development workflow
@@ -56,7 +58,7 @@ The main logic lives in:
 
 ## Notes
 
-- `page-about-us.php` and `page-contact-us.php` are available for direct WordPress rendering; the public site is still served by the frontend.
+- `page-about-us.php` and `page-contact-us.php` are available for direct WordPress rendering; the public site is still served by the frontend. The Invest With Us field group is located by matching the existing page slug or title.
 - The theme removes the matching CPT/taxonomy registration hooks from the active core plugin before registering its equivalents. Keep the plugin active for its other integrations.
 - The contact GraphQL mutation is initialized from the existing core plugin class. It has been schema-validated locally, but a real submission has not been tested.
 - If the frontend is handled by a reverse proxy or external hosting layer, you can remove the redirect block from `functions.php` and keep only the ACF/GraphQL setup.

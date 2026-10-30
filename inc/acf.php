@@ -21,6 +21,7 @@ require_once __DIR__ . '/acf/acf-fields.php';
 require_once __DIR__ . '/acf/acf-header.php';
 require_once __DIR__ . '/acf/acf-footer.php';
 require_once __DIR__ . '/acf/acf-contact.php';
+require_once __DIR__ . '/acf/acf-invest-with-us.php';
 
 Alomar_Theme_ACF_Content::init();
 Alomar_Theme_Site_Content::init();

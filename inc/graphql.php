@@ -33,6 +33,103 @@ add_action('graphql_register_types', static function (): void {
         return;
     }
 
+    register_graphql_object_type('AlomarContactPageContent', [
+        'description' => __('Contact page fields from the page assigned the Contact Us template.', 'theme-headless'),
+        'fields' => [
+            'badgeAr' => ['type' => 'String'],
+            'badgeEn' => ['type' => 'String'],
+            'titleAr' => ['type' => 'String'],
+            'titleEn' => ['type' => 'String'],
+            'descriptionAr' => ['type' => 'String'],
+            'descriptionEn' => ['type' => 'String'],
+            'bannerImage' => ['type' => 'String'],
+            'headingAr' => ['type' => 'String'],
+            'headingEn' => ['type' => 'String'],
+            'email' => ['type' => 'String'],
+            'phone' => ['type' => 'String'],
+            'website' => ['type' => 'String'],
+            'addressAr' => ['type' => 'String'],
+            'addressEn' => ['type' => 'String'],
+            'workingHoursAr' => ['type' => 'String'],
+            'workingHoursEn' => ['type' => 'String'],
+            'locationAr' => ['type' => 'String'],
+            'locationEn' => ['type' => 'String'],
+            'mapLat' => ['type' => 'Float'],
+            'mapLng' => ['type' => 'Float'],
+            'mapUrl' => ['type' => 'String'],
+            'linkedinUrl' => ['type' => 'String'],
+            'twitterUrl' => ['type' => 'String'],
+            'formTitleAr' => ['type' => 'String'],
+            'formTitleEn' => ['type' => 'String'],
+        ],
+    ]);
+
+    register_graphql_field('RootQuery', 'alomarContactPageContent', [
+        'type' => 'AlomarContactPageContent',
+        'description' => __('Contact page content managed with ACF.', 'theme-headless'),
+        'resolve' => static function (): ?array {
+            $pages = get_posts([
+                'post_type' => 'page',
+                'post_status' => 'publish',
+                'numberposts' => 1,
+                'meta_key' => '_wp_page_template',
+                'meta_value' => 'page-contact-us.php',
+            ]);
+            if (!$pages || !function_exists('get_field')) {
+                return null;
+            }
+
+            $page_id = (int) $pages[0]->ID;
+            $get = static fn(string $name, mixed $fallback = ''): mixed => get_field($name, $page_id) ?? $fallback;
+            $link_url = static function (mixed $link): string {
+                if (is_array($link)) {
+                    return is_string($link['url'] ?? null) ? $link['url'] : '';
+                }
+                return is_string($link) ? $link : '';
+            };
+            $image_url = static function (mixed $image): string {
+                if (is_array($image)) {
+                    return is_string($image['url'] ?? null) ? $image['url'] : '';
+                }
+                if (is_numeric($image)) {
+                    return wp_get_attachment_url((int) $image) ?: '';
+                }
+                return is_string($image) ? $image : '';
+            };
+            $lat = (float) $get('contact_map_lat', 0);
+            $lng = (float) $get('contact_map_lng', 0);
+            $map_url = $get('contact_map_url');
+
+            return [
+                'badgeAr' => $get('contact_badge'),
+                'badgeEn' => $get('contact_badge_en'),
+                'titleAr' => $get('contact_page_title'),
+                'titleEn' => $get('contact_page_title_en'),
+                'descriptionAr' => $get('contact_page_description'),
+                'descriptionEn' => $get('contact_page_description_en'),
+                'bannerImage' => $image_url($get('contact_page_banner_image')),
+                'headingAr' => $get('contact_heading'),
+                'headingEn' => $get('contact_heading_en'),
+                'email' => $get('contact_email'),
+                'phone' => $get('contact_phone'),
+                'website' => $get('contact_website'),
+                'addressAr' => $get('contact_address'),
+                'addressEn' => $get('contact_address_en'),
+                'workingHoursAr' => $get('contact_hours'),
+                'workingHoursEn' => $get('contact_hours_en'),
+                'locationAr' => $get('contact_location'),
+                'locationEn' => $get('contact_location_en'),
+                'mapLat' => $lat,
+                'mapLng' => $lng,
+                'mapUrl' => $map_url ?: ($lat && $lng ? add_query_arg('q', $lat . ',' . $lng, 'https://maps.google.com/') : ''),
+                'linkedinUrl' => $link_url($get('contact_linkedin')),
+                'twitterUrl' => $link_url($get('contact_twitter')),
+                'formTitleAr' => $get('contact_form_title'),
+                'formTitleEn' => $get('contact_form_title_en'),
+            ];
+        },
+    ]);
+
     register_graphql_field('NewsArticle', 'relatedArticles', [
         'type' => ['list_of' => 'NewsArticle'],
         'description' => __('Published articles explicitly related to this article.', 'theme-headless'),
