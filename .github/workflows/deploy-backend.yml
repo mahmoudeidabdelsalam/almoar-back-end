@@ -17,15 +17,14 @@ jobs:
 
     steps:
       - name: Setup SSH
+        env:
+          SSH_KEY_B64: ${{ secrets.DEPLOY_SSH_KEY_B64 }}
+          SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
         run: |
+          set -e
+
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-
-          echo "${{ secrets.DEPLOY_SSH_KEY_B64 }}" | base64 -d > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-
-          echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/known_hosts
 
       - name: Test SSH Connection
         run: |
