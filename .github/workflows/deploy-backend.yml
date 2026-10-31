@@ -1,0 +1,56 @@
+name: Deploy Almoar WordPress Theme
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: almoar-wordpress-theme-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy WordPress Theme
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          echo "${{ secrets.DEPLOY_SSH_KEY_B64 }}" | base64 -d > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+          echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Test SSH Connection
+        run: |
+          ssh -i ~/.ssh/id_ed25519 \
+            -o BatchMode=yes \
+            "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" \
+            "whoami"
+
+      - name: Deploy Theme
+        run: |
+          ssh -i ~/.ssh/id_ed25519 \
+            -o BatchMode=yes \
+            "${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}" \
+            'bash -se' <<'REMOTE'
+              set -euo pipefail
+
+              THEME_DIR="/home/art/public_html/wp-content/themes/theme-headless"
+
+              echo "Deploying WordPress theme..."
+
+              cd "$THEME_DIR"
+
+              git fetch origin main
+              git reset --hard origin/main
+
+              echo "Deployment completed successfully."
+              git log -1 --oneline
+          REMOTE
