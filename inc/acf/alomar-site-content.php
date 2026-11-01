@@ -195,7 +195,7 @@ final class Alomar_Theme_Site_Content {
         ];
         $home_sector_tag_fields = [
             ...self::localized_fields('home_about_sector_tag_label', 'Tag Label', 'text', 'label'),
-            self::field('home_about_sector_tag_url', 'url', 'Tag URL', 'url'),
+            self::field('home_about_sector_tag_url', 'url', 'Tag URL', 'text'),
         ];
         $home_sector_fields = [
             ...self::localized_fields('home_about_sector_title', 'Sector Title', 'text', 'title'),
@@ -260,7 +260,7 @@ final class Alomar_Theme_Site_Content {
                 ...self::localized_fields('section_copy_title', 'Title', 'text', 'title'),
                 ...self::localized_fields('section_copy_enscription', 'Description', 'textarea', 'description'),
                 ...self::localized_fields('section_copy_cta_label', 'CTA Label', 'text', 'cta_label'),
-                self::field('section_copy_cta_url', 'cta_url', 'CTA URL', 'url'),
+                self::field('section_copy_cta_url', 'cta_url', 'CTA URL', 'text'),
             ],
         ], [
             'key' => 'field_alomar_content_home_about',
