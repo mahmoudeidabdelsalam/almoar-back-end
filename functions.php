@@ -56,18 +56,18 @@ add_action( 'admin_notices', function () {
 } );
 
 /**
- * This theme serves no frontend templates. If a visitor hits the
- * WordPress site directly (anything other than /wp-admin or the
- * GraphQL endpoint), send them to the React frontend instead.
+ * This theme serves no frontend templates. Public WordPress-rendered pages
+ * must not compete with the headless frontend in search results.
+ * If configured, redirect public visitors to the React frontend.
  *
- * ASSUMPTION: set REACT_FRONTEND_URL to the deployed React app's URL.
- * Remove this block entirely if the project already handles this
- * (e.g. at the reverse-proxy/DNS level) rather than in PHP.
+ * Set REACT_FRONTEND_URL to the deployed React app's URL to enable redirects.
  */
 add_action( 'template_redirect', function () {
 	if ( is_admin() ) {
 		return;
 	}
+
+	header( 'X-Robots-Tag: noindex, follow', true );
 
 	$frontend_url = defined( 'REACT_FRONTEND_URL' ) ? REACT_FRONTEND_URL : '';
 
@@ -78,10 +78,20 @@ add_action( 'template_redirect', function () {
 } );
 
 /**
+ * Keep the WordPress backend hostname out of search results. The frontend
+ * owns public indexing and publishes its own canonical sitemap.
+ */
+add_filter( 'robots_txt', function ( $output ) {
+	$output = preg_replace( '/^Sitemap:.*(?:\R|$)/mi', '', $output );
+	$output = rtrim( $output );
+
+	return $output . "\nUser-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n";
+}, 100000 );
+
+/**
  * Allow the React frontend's origin to call WPGraphQL directly from
  * the browser if needed (e.g. for previews). If GraphQL requests are
- * always made server-side (as in the provided `wordpressFetch`
- * helper), this is not required — remove it.
+ * always made server-side, this is not required.
  *
  * ASSUMPTION: set REACT_FRONTEND_URL as above.
  */

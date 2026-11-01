@@ -36,6 +36,7 @@ This theme primarily serves the headless frontend. It:
 - exposes theme-owned content fields to WPGraphQL
 - preserves the active Alomar core plugin for existing GraphQL/business logic
 - redirects non-admin frontend traffic to the React app
+- marks WordPress-rendered public pages as `noindex` and keeps the WordPress sitemap out of its `robots.txt`; the public frontend owns search indexing and its sitemap
 - keeps WordPress as the content source and admin backend only
 
 The main logic lives in:
