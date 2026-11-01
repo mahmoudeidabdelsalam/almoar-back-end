@@ -17,7 +17,7 @@ require_once __DIR__ . '/acf/alomar-content-model.php';
 
 // Recovered Git-baseline field groups remain registered for backward compatibility.
 // They are legacy definitions only; all new Alomar registrations use unique keys.
-require_once __DIR__ . '/acf/acf-fields.php';
+// require_once __DIR__ . '/acf/acf-fields.php';
 require_once __DIR__ . '/acf/acf-header.php';
 require_once __DIR__ . '/acf/acf-footer.php';
 require_once __DIR__ . '/acf/acf-contact.php';

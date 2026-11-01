@@ -62,21 +62,21 @@ final class Alomar_Theme_Post_Types {
             'menu_position' => 5,
         ]);
 
-        register_post_type('inquiries', [
-            'labels' => [
-                'name' => __('Inquiries', 'alomar-holding-core'),
-                'singular_name' => __('Inquiry', 'alomar-holding-core'),
-                'menu_name' => __('Inquiries (الاستفسارات)', 'alomar-holding-core'),
-            ],
-            'public' => false,
-            'show_ui' => true,
-            'show_in_menu' => true,
-            'show_in_rest' => false,
-            'menu_icon' => 'dashicons-email-alt',
-            'supports' => ['title', 'editor', 'custom-fields'],
-            'capabilities' => ['create_posts' => 'do_not_allow'],
-            'map_meta_cap' => true,
-        ]);
+        // register_post_type('inquiries', [
+        //     'labels' => [
+        //         'name' => __('Inquiries', 'alomar-holding-core'),
+        //         'singular_name' => __('Inquiry', 'alomar-holding-core'),
+        //         'menu_name' => __('Inquiries (الاستفسارات)', 'alomar-holding-core'),
+        //     ],
+        //     'public' => false,
+        //     'show_ui' => true,
+        //     'show_in_menu' => true,
+        //     'show_in_rest' => false,
+        //     'menu_icon' => 'dashicons-email-alt',
+        //     'supports' => ['title', 'editor', 'custom-fields'],
+        //     'capabilities' => ['create_posts' => 'do_not_allow'],
+        //     'map_meta_cap' => true,
+        // ]);
     }
 }
 

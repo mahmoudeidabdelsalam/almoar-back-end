@@ -148,24 +148,6 @@ add_action( 'acf/init', function () {
 					),
 				),
 			),
-			array(
-				'key'   => 'field_wp_header_label_button_right',
-				'label' => 'Right Button Label',
-				'name'  => 'label_button_right',
-				'type'  => 'text',
-			),
-			array(
-				'key'   => 'field_wp_header_label_button_right_en',
-				'label' => 'Right Button Label (English)',
-				'name'  => 'label_button_right_en',
-				'type'  => 'text',
-			),
-			array(
-				'key'   => 'field_wp_header_link_button_right',
-				'label' => 'Right Button Link',
-				'name'  => 'link_button_right',
-				'type'  => 'link',
-			),
 		),
 	) );
 

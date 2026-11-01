@@ -404,37 +404,6 @@ final class Alomar_Theme_Site_Content {
                     'sub_fields' => $about_navigation_fields,
                 ],
             ],
-        ], [
-            'key' => 'field_alomar_content_vision_section',
-            'label' => 'Vision 2030 Section',
-            'name' => 'vision_section',
-            'type' => 'group',
-            'sub_fields' => [
-                ...self::localized_fields('vision_section_badge', 'Eyebrow', 'text', 'badge'),
-                ...self::localized_fields('vision_section_title', 'Title', 'text', 'title'),
-                ...self::localized_fields('vision_section_enscription', 'Description', 'textarea', 'description'),
-                [
-                    'key' => 'field_alomar_content_vision_pillars',
-                    'label' => 'Vision Pillars',
-                    'name' => 'pillars',
-                    'type' => 'repeater',
-                    'layout' => 'table',
-                    'button_label' => 'Add Vision Pillar',
-                    'sub_fields' => $vision_pillar_fields,
-                ],
-                ...self::localized_fields('vision_section_footer_line', 'Closing Statement', 'textarea', 'footer_line'),
-                ...self::localized_fields('vision_section_cta_label', 'CTA Label', 'text', 'cta_label'),
-                self::field('vision_section_cta_url', 'cta_url', 'CTA URL', 'url'),
-            ],
-        ], [
-            'key' => 'field_alomar_content_footer',
-            'label' => 'Footer Editorial Copy',
-            'name' => 'footer_content',
-            'type' => 'group',
-            'sub_fields' => [
-                ...self::localized_fields('footer_company_enscription', 'Company Description', 'textarea', 'company_description'),
-                ...self::localized_fields('footer_vision_badge', 'Vision 2030 Badge', 'text', 'vision_badge'),
-            ],
         ]];
 
         $about_page_field = null;
