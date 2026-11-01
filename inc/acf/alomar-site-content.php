@@ -193,11 +193,22 @@ final class Alomar_Theme_Site_Content {
             ...self::localized_fields('vision_pillar_title', 'Title', 'text', 'title'),
             ...self::localized_fields('vision_pillar_enscription', 'Description', 'textarea', 'description'),
         ];
+        $home_sector_tag_fields = [
+            ...self::localized_fields('home_about_sector_tag_label', 'Tag Label', 'text', 'label'),
+            self::field('home_about_sector_tag_url', 'url', 'Tag URL', 'url'),
+        ];
         $home_sector_fields = [
             ...self::localized_fields('home_about_sector_title', 'Sector Title', 'text', 'title'),
             ...self::localized_fields('home_about_sector_enscription', 'Sector Description', 'textarea', 'description'),
-            ...self::localized_fields('home_about_sector_button_label', 'Button Label', 'text', 'button_label'),
-            self::field('home_about_sector_button_url', 'button_url', 'Button URL', 'url'),
+            [
+                'key' => 'field_alomar_content_home_about_sector_tags',
+                'label' => 'Tags',
+                'name' => 'tags',
+                'type' => 'repeater',
+                'layout' => 'table',
+                'button_label' => 'Add Tag',
+                'sub_fields' => $home_sector_tag_fields,
+            ],
             self::field('home_about_sector_logo', 'logo', 'Sector Logo', 'image', ['return_format' => 'url']),
         ];
 

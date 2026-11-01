@@ -87,10 +87,16 @@ final class Alomar_Theme_Site_Content_GraphQL {
             'titleEn' => 'String',
             'descriptionAr' => 'String',
             'descriptionEn' => 'String',
+            'tags' => ['list_of' => 'AlomarHomeSectorTag'],
             'buttonLabelAr' => 'String',
             'buttonLabelEn' => 'String',
             'buttonUrl' => 'String',
             'logoUrl' => 'String',
+        ],
+        'AlomarHomeSectorTag' => [
+            'labelAr' => 'String',
+            'labelEn' => 'String',
+            'url' => 'String',
         ],
         'AlomarAboutValue' => [
             'titleAr' => 'String',
@@ -350,7 +356,8 @@ final class Alomar_Theme_Site_Content_GraphQL {
                     'titleEn' => $home_about['sectors']['title_en'] ?? null,
                     'descriptionAr' => $home_about['sectors']['description_ar'] ?? null,
                     'descriptionEn' => $home_about['sectors']['description_en'] ?? null,
-                    'items' => self::map_rows(is_array($home_about['sectors']['items'] ?? null) ? $home_about['sectors']['items'] : [], [
+                    'items' => array_map(static function (array $item): array {
+                        $mapped = self::map_rows([$item], [
                         'titleAr' => 'title_ar',
                         'titleEn' => 'title_en',
                         'descriptionAr' => 'description_ar',
@@ -359,7 +366,26 @@ final class Alomar_Theme_Site_Content_GraphQL {
                         'buttonLabelEn' => 'button_label_en',
                         'buttonUrl' => 'button_url',
                         'logoUrl' => 'logo',
-                    ], ['buttonUrl' => 'link', 'logoUrl' => 'image']),
+                        ], ['buttonUrl' => 'link', 'logoUrl' => 'image'])[0];
+                        $mapped['tags'] = self::map_rows(is_array($item['tags'] ?? null) ? $item['tags'] : [], [
+                            'labelAr' => 'label_ar',
+                            'labelEn' => 'label_en',
+                            'url' => 'url',
+                        ], ['url' => 'link']);
+
+                        if (!$mapped['tags'] && (!empty($mapped['buttonLabelAr']) || !empty($mapped['buttonLabelEn']))) {
+                            $mapped['tags'][] = [
+                                'labelAr' => $mapped['buttonLabelAr'],
+                                'labelEn' => $mapped['buttonLabelEn'],
+                                'url' => $mapped['buttonUrl'],
+                            ];
+                        }
+
+                        return $mapped;
+                    }, array_values(array_filter(
+                        is_array($home_about['sectors']['items'] ?? null) ? $home_about['sectors']['items'] : [],
+                        'is_array'
+                    ))),
                 ],
             ],
             'aboutPage' => $about_page,
