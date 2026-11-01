@@ -195,8 +195,8 @@ final class Alomar_Theme_ACF_Content {
                     ['key' => 'field_alomar_home_hero_title_en', 'label' => 'Title (English)', 'name' => 'title_en', 'type' => 'text'],
                     ['key' => 'field_alomar_home_hero_ensc_ar', 'label' => 'Description (Arabic)', 'name' => 'desc_ar', 'type' => 'textarea', 'rows' => 3],
                     ['key' => 'field_alomar_home_hero_ensc_en', 'label' => 'Description (English)', 'name' => 'desc_en', 'type' => 'textarea', 'rows' => 3],
-                    ['key' => 'field_alomar_home_hero_primary_link', 'label' => 'Primary Link', 'name' => 'primary_link', 'type' => 'url'],
-                    ['key' => 'field_alomar_home_hero_secondary_link', 'label' => 'Secondary Link', 'name' => 'secondary_link', 'type' => 'url'],
+                    ['key' => 'field_alomar_home_hero_primary_link', 'label' => 'Primary Link', 'name' => 'primary_link', 'type' => 'text'],
+                    ['key' => 'field_alomar_home_hero_secondary_link', 'label' => 'Secondary Link', 'name' => 'secondary_link', 'type' => 'text'],
                 ],
             ]],
         ]);
