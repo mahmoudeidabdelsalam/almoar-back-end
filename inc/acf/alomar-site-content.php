@@ -193,6 +193,13 @@ final class Alomar_Theme_Site_Content {
             ...self::localized_fields('vision_pillar_title', 'Title', 'text', 'title'),
             ...self::localized_fields('vision_pillar_enscription', 'Description', 'textarea', 'description'),
         ];
+        $home_sector_fields = [
+            ...self::localized_fields('home_about_sector_title', 'Sector Title', 'text', 'title'),
+            ...self::localized_fields('home_about_sector_enscription', 'Sector Description', 'textarea', 'description'),
+            ...self::localized_fields('home_about_sector_button_label', 'Button Label', 'text', 'button_label'),
+            self::field('home_about_sector_button_url', 'button_url', 'Button URL', 'url'),
+            self::field('home_about_sector_logo', 'logo', 'Sector Logo', 'image', ['return_format' => 'url']),
+        ];
 
         $fields = [[
             'key' => 'field_alomar_content_page_banners',
@@ -263,6 +270,27 @@ final class Alomar_Theme_Site_Content {
                     'layout' => 'table',
                     'button_label' => 'Add Pillar',
                     'sub_fields' => $pillar_fields,
+                ],
+                [
+                    'key' => 'field_alomar_content_home_about_sectors',
+                    'label' => 'Sectors',
+                    'name' => 'sectors',
+                    'type' => 'group',
+                    'layout' => 'block',
+                    'sub_fields' => [
+                        ...self::localized_fields('home_about_sectors_badge', 'Section Tag', 'text', 'badge'),
+                        ...self::localized_fields('home_about_sectors_title', 'Section Title', 'text', 'title'),
+                        ...self::localized_fields('home_about_sectors_enscription', 'Section Description', 'textarea', 'description'),
+                        [
+                            'key' => 'field_alomar_content_home_about_sectors_items',
+                            'label' => 'Sectors',
+                            'name' => 'items',
+                            'type' => 'repeater',
+                            'layout' => 'block',
+                            'button_label' => 'Add Sector',
+                            'sub_fields' => $home_sector_fields,
+                        ],
+                    ],
                 ],
             ],
         ], [
