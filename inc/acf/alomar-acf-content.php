@@ -18,6 +18,7 @@ final class Alomar_Theme_ACF_Content {
                 ['name' => 'content_en', 'label' => 'Description (English)', 'type' => 'textarea', 'graphql' => 'contentEn', 'legacy' => '_alomar_content_en'],
                 ['name' => 'featured', 'label' => 'Featured Project', 'type' => 'true_false', 'graphql' => 'featured', 'graphql_type' => 'Boolean'],
                 ['name' => 'project_logo', 'label' => 'Project Logo', 'type' => 'image', 'return_format' => 'array'],
+                ['name' => 'project_website', 'label' => 'Project Website', 'type' => 'url', 'instructions' => 'Optional website opened when visitors click the project logo.'],
                 ['name' => 'stats_band_tab', 'label' => 'Stats Band', 'type' => 'tab', 'placement' => 'left'],
                 ['name' => 'stats_tag', 'label' => 'Stats Tag (Arabic)', 'type' => 'text'],
                 ['name' => 'stats_tag_en', 'label' => 'Stats Tag (English)', 'type' => 'text'],
